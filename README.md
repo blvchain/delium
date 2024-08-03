@@ -22,7 +22,7 @@ import "github.com/yahya-aghdam/Delium"
 
 This lib has two functions Delium256 and Delium512, The input and output is same but method of SHA encryption.
 
-### `Delium256`
+### `D256`
 
 Processes a string data by first hashing it with SHA-256, then repeatedly deleting characters from the resulting hash string at specified intervals, and finally hashing the modified string again with SHA-256.
 
@@ -34,11 +34,11 @@ Processes a string data by first hashing it with SHA-256, then repeatedly deleti
 
 **Returns:**
 
-- A pointer to a `Byte_hash` struct containing:
+- A pointer to a `D_hash` struct containing:
   - `Byte_slice`: A byte slice of the final SHA-256 hash after applying the deletion process the specified number of times.
   - `String`: A hexadecimal string representation of the final SHA-256 hash.
 
-### `Delium512`
+### `D512`
 
 Processes a string data by first hashing it with SHA-512, then repeatedly deleting characters from the resulting hash string at specified intervals, and finally hashing the modified string again with SHA-512.
 
@@ -50,7 +50,7 @@ Processes a string data by first hashing it with SHA-512, then repeatedly deleti
 
 **Returns:**
 
-- A pointer to a `Byte_hash` struct containing:
+- A pointer to a `D_hash` struct containing:
   - `Byte_slice`: A byte slice of the final SHA-256 hash after applying the deletion process the specified number of times.
   - `String`: A hexadecimal string representation of the final SHA-256 hash.
 

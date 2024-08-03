@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 )
 
-type Byte_hash struct {
+type D_hash struct {
 	Byte_slice []byte
 	String     string
 }
@@ -21,7 +21,7 @@ type Byte_hash struct {
 //   - repeat: An integer specifying how many times the deletion process should be applied.
 //
 // Returns:
-//   - A pointer to a Byte_hash struct containing:
+//   - A pointer to a D_hash struct containing:
 //   - Byte_slice: A byte slice of the final SHA-256 hash after applying the deletion process the specified
 //     number of times.
 //   - String: A hexadecimal string representation of the final SHA-256 hash.
@@ -31,14 +31,14 @@ type Byte_hash struct {
 //  2. For a specified number of repetitions, deletes every `deleteStep`-th character from the hash string
 //     generated in the previous step.
 //  3. Computes the SHA-256 hash of the modified string after each repetition.
-//  4. Returns a Byte_hash struct with the final SHA-256 hash in both byte slice and hexadecimal string formats.
+//  4. Returns a D_hash struct with the final SHA-256 hash in both byte slice and hexadecimal string formats.
 //
 // Example:
 //
 //	result := delium.D256("example strData", 3, 5)
 //	fmt.Println(result.Byte_slice)  // prints the byte slice of the final hash
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
-func D256(strData string, deleteStep int, repeat int) *Byte_hash {
+func D256(strData string, deleteStep int, repeat int) *D_hash {
 
 	strDataHash := sha256.Sum256([]byte(strData))
 	var hashByte []byte = strDataHash[:]
@@ -56,7 +56,7 @@ func D256(strData string, deleteStep int, repeat int) *Byte_hash {
 		hashByte = hashByte32[:]
 	}
 
-	return &Byte_hash{
+	return &D_hash{
 		Byte_slice: hashByte,
 		String:     hex.EncodeToString(hashByte),
 	}
@@ -72,7 +72,7 @@ func D256(strData string, deleteStep int, repeat int) *Byte_hash {
 //   - repeat: An integer specifying how many times the deletion process should be applied.
 //
 // Returns:
-//   - A pointer to a Byte_hash struct containing:
+//   - A pointer to a D_hash struct containing:
 //   - Byte_slice: A byte slice of the final SHA-512 hash after applying the deletion process the specified
 //     number of times.
 //   - String: A hexadecimal string representation of the final SHA-512 hash.
@@ -82,14 +82,14 @@ func D256(strData string, deleteStep int, repeat int) *Byte_hash {
 //  2. For a specified number of repetitions, deletes every `deleteStep`-th character from the hash string
 //     generated in the previous step.
 //  3. Computes the SHA-512 hash of the modified string after each repetition.
-//  4. Returns a Byte_hash struct with the final SHA-512 hash in both byte slice and hexadecimal string formats.
+//  4. Returns a D_hash struct with the final SHA-512 hash in both byte slice and hexadecimal string formats.
 //
 // Example:
 //
 //	result := delium.D512("example strData", 3, 5)
 //	fmt.Println(result.Byte_slice)  // prints the byte slice of the final hash
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
-func D512(strData string, deleteStep int, repeat int) *Byte_hash {
+func D512(strData string, deleteStep int, repeat int) *D_hash {
 
 	strDataHash := sha512.Sum512([]byte(strData))
 	var hashByte []byte = strDataHash[:]
@@ -107,7 +107,7 @@ func D512(strData string, deleteStep int, repeat int) *Byte_hash {
 		hashByte = hashByte32[:]
 	}
 
-	return &Byte_hash{
+	return &D_hash{
 		Byte_slice: hashByte,
 		String:     hex.EncodeToString(hashByte),
 	}

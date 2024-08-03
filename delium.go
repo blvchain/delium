@@ -40,25 +40,25 @@ type D_hash struct {
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
 func D256(strData string, deleteStep int, repeat int) *D_hash {
 
-	strDataHash := sha256.Sum256([]byte(strData))
-	var hashByte []byte = strDataHash[:]
+	dataHash := sha256.Sum256([]byte(strData))
+	var strDataHash string = hex.EncodeToString(dataHash[:])
 
 	for i := 0; i < repeat; i++ {
 
-		var result []rune
-		for i, r := range string(hashByte) {
-			if (i+1)%deleteStep != 0 {
-				result = append(result, r)
+		var result string = ""
+		for r := 0; r < len(strDataHash); r++ {
+			if (r+1)%deleteStep != 0 {
+				result += string(strDataHash[r])
 			}
 		}
 
-		hashByte32 := sha256.Sum256([]byte(string(result)))
-		hashByte = hashByte32[:]
+		hashByte32 := sha256.Sum256([]byte(result))
+		strDataHash = hex.EncodeToString(hashByte32[:])
 	}
 
 	return &D_hash{
-		Byte_slice: hashByte,
-		String:     hex.EncodeToString(hashByte),
+		Byte_slice: []byte(strDataHash),
+		String:     strDataHash,
 	}
 }
 
@@ -91,24 +91,24 @@ func D256(strData string, deleteStep int, repeat int) *D_hash {
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
 func D512(strData string, deleteStep int, repeat int) *D_hash {
 
-	strDataHash := sha512.Sum512([]byte(strData))
-	var hashByte []byte = strDataHash[:]
+	dataHash := sha512.Sum512([]byte(strData))
+	var strDataHash string = hex.EncodeToString(dataHash[:])
 
 	for i := 0; i < repeat; i++ {
 
-		var result []rune
-		for i, r := range string(hashByte) {
-			if (i+1)%deleteStep != 0 {
-				result = append(result, r)
+		var result string = ""
+		for r := 0; r < len(strDataHash); r++ {
+			if (r+1)%deleteStep != 0 {
+				result += string(strDataHash[r])
 			}
 		}
 
-		hashByte32 := sha512.Sum512([]byte(string(result)))
-		hashByte = hashByte32[:]
+		hashByte32 := sha512.Sum512([]byte(result))
+		strDataHash = hex.EncodeToString(hashByte32[:])
 	}
 
 	return &D_hash{
-		Byte_slice: hashByte,
-		String:     hex.EncodeToString(hashByte),
+		Byte_slice: []byte(strDataHash),
+		String:     strDataHash,
 	}
 }

@@ -11,12 +11,12 @@ type Byte_hash struct {
 	String     string
 }
 
-// Delium256 processes a mnemonic string by first hashing it with SHA-256, then repeatedly deleting
+// Delium256 processes a strData string by first hashing it with SHA-256, then repeatedly deleting
 // characters from the resulting hash string at specified intervals, and finally hashing the
 // modified string again with SHA-256.
 //
 // Parameters:
-//   - mnemonic: A string representing the mnemonic phrase to be processed and hashed.
+//   - strData: A string representing the strData phrase to be processed and hashed.
 //   - deleteStep: An integer specifying the interval at which characters will be deleted from the hash string.
 //   - repeat: An integer specifying how many times the deletion process should be applied.
 //
@@ -27,7 +27,7 @@ type Byte_hash struct {
 //   - String: A hexadecimal string representation of the final SHA-256 hash.
 //
 // The function works as follows:
-//  1. Computes the SHA-256 hash of the input mnemonic string.
+//  1. Computes the SHA-256 hash of the input strData string.
 //  2. For a specified number of repetitions, deletes every `deleteStep`-th character from the hash string
 //     generated in the previous step.
 //  3. Computes the SHA-256 hash of the modified string after each repetition.
@@ -35,13 +35,13 @@ type Byte_hash struct {
 //
 // Example:
 //
-//	result := Delium256("example mnemonic", 3, 5)
+//	result := Delium256("example strData", 3, 5)
 //	fmt.Println(result.Byte_slice)  // prints the byte slice of the final hash
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
-func Delium256(mnemonic string, deleteStep int, repeat int) *Byte_hash {
+func Delium256(strData string, deleteStep int, repeat int) *Byte_hash {
 
-	mnemonicHash := sha256.Sum256([]byte(mnemonic))
-	var hashByte []byte = mnemonicHash[:]
+	strDataHash := sha256.Sum256([]byte(strData))
+	var hashByte []byte = strDataHash[:]
 
 	for i := 0; i < repeat; i++ {
 
@@ -62,12 +62,12 @@ func Delium256(mnemonic string, deleteStep int, repeat int) *Byte_hash {
 	}
 }
 
-// Delium512 processes a mnemonic string by first hashing it with SHA-512, then repeatedly deleting
+// Delium512 processes a strData string by first hashing it with SHA-512, then repeatedly deleting
 // characters from the resulting hash string at specified intervals, and finally hashing the
 // modified string again with SHA-512.
 //
 // Parameters:
-//   - mnemonic: A string representing the mnemonic phrase to be processed and hashed.
+//   - strData: A string representing the strData phrase to be processed and hashed.
 //   - deleteStep: An integer specifying the interval at which characters will be deleted from the hash string.
 //   - repeat: An integer specifying how many times the deletion process should be applied.
 //
@@ -78,7 +78,7 @@ func Delium256(mnemonic string, deleteStep int, repeat int) *Byte_hash {
 //   - String: A hexadecimal string representation of the final SHA-512 hash.
 //
 // The function works as follows:
-//  1. Computes the SHA-512 hash of the input mnemonic string.
+//  1. Computes the SHA-512 hash of the input strData string.
 //  2. For a specified number of repetitions, deletes every `deleteStep`-th character from the hash string
 //     generated in the previous step.
 //  3. Computes the SHA-512 hash of the modified string after each repetition.
@@ -86,13 +86,13 @@ func Delium256(mnemonic string, deleteStep int, repeat int) *Byte_hash {
 //
 // Example:
 //
-//	result := Delium512("example mnemonic", 3, 5)
+//	result := Delium512("example strData", 3, 5)
 //	fmt.Println(result.Byte_slice)  // prints the byte slice of the final hash
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
-func Delium512(mnemonic string, deleteStep int, repeat int) *Byte_hash {
+func Delium512(strData string, deleteStep int, repeat int) *Byte_hash {
 
-	mnemonicHash := sha512.Sum512([]byte(mnemonic))
-	var hashByte []byte = mnemonicHash[:]
+	strDataHash := sha512.Sum512([]byte(strData))
+	var hashByte []byte = strDataHash[:]
 
 	for i := 0; i < repeat; i++ {
 

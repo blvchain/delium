@@ -11,7 +11,7 @@ type Byte_hash struct {
 	String     string
 }
 
-// Delium256 processes a strData string by first hashing it with SHA-256, then repeatedly deleting
+// D256 processes a strData string by first hashing it with SHA-256, then repeatedly deleting
 // characters from the resulting hash string at specified intervals, and finally hashing the
 // modified string again with SHA-256.
 //
@@ -35,10 +35,10 @@ type Byte_hash struct {
 //
 // Example:
 //
-//	result := Delium256("example strData", 3, 5)
+//	result := delium.D256("example strData", 3, 5)
 //	fmt.Println(result.Byte_slice)  // prints the byte slice of the final hash
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
-func Delium256(strData string, deleteStep int, repeat int) *Byte_hash {
+func D256(strData string, deleteStep int, repeat int) *Byte_hash {
 
 	strDataHash := sha256.Sum256([]byte(strData))
 	var hashByte []byte = strDataHash[:]
@@ -62,7 +62,7 @@ func Delium256(strData string, deleteStep int, repeat int) *Byte_hash {
 	}
 }
 
-// Delium512 processes a strData string by first hashing it with SHA-512, then repeatedly deleting
+// D512 processes a strData string by first hashing it with SHA-512, then repeatedly deleting
 // characters from the resulting hash string at specified intervals, and finally hashing the
 // modified string again with SHA-512.
 //
@@ -86,10 +86,10 @@ func Delium256(strData string, deleteStep int, repeat int) *Byte_hash {
 //
 // Example:
 //
-//	result := Delium512("example strData", 3, 5)
+//	result := delium.D512("example strData", 3, 5)
 //	fmt.Println(result.Byte_slice)  // prints the byte slice of the final hash
 //	fmt.Println(result.String)      // prints the hexadecimal string of the final hash
-func Delium512(strData string, deleteStep int, repeat int) *Byte_hash {
+func D512(strData string, deleteStep int, repeat int) *Byte_hash {
 
 	strDataHash := sha512.Sum512([]byte(strData))
 	var hashByte []byte = strDataHash[:]

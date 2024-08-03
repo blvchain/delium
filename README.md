@@ -51,8 +51,8 @@ Processes a string data by first hashing it with SHA-512, then repeatedly deleti
 **Returns:**
 
 - A pointer to a `Byte_hash` struct containing:
-  - `Byte_slice`: A byte slice of the final SHA-512 hash after applying the deletion process the specified number of times.
-  - `String`: A hexadecimal string representation of the final SHA-512 hash.
+  - `Byte_slice`: A byte slice of the final SHA-256 hash after applying the deletion process the specified number of times.
+  - `String`: A hexadecimal string representation of the final SHA-256 hash.
 
 ## Usage example
 ```go
@@ -65,11 +65,11 @@ import (
 
 func main() {
 
-    result := Delium256("example mnemonic", 3, 5)
+    result := delium.D256("example mnemonic", 3, 5)
 
     fmt.Println("Byte Slice:", result.Byte_slice)  // prints the byte slice of the final hash
 
     fmt.Println("Hex String:", result.String)      // prints the hexadecimal string of the final hash
-    
+
 }
 ```

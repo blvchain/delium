@@ -4,6 +4,9 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
+	"log"
+	"strconv"
+	"strings"
 )
 
 type D_hash struct {
@@ -105,6 +108,130 @@ func D512(strData string, deleteStep int, repeat int) *D_hash {
 
 		hashByte32 := sha512.Sum512([]byte(result))
 		strDataHash = hex.EncodeToString(hashByte32[:])
+	}
+
+	return &D_hash{
+		Byte_slice: []byte(strDataHash),
+		String:     strDataHash,
+	}
+}
+
+/*
+D256C is complex delium that performs a specific method of D256:
+
+1. Path example: "2h4usk#5/73uytg#9/#4"
+  - path := "addonString1 # deleteStep1 / addonString2 # deleteStep2 / # justDeleteStep3"
+
+2. Purpose:
+  - The function takes an initial string `strData` and a `path` (which is not used in this function directly) and processes the hash of `strData` through several iterations.
+  - Each iteration involves appending additional strings and recalculating the hash.
+
+3. Procedure:
+  - Compute the SHA-256 hash of the input string `strData` to generate an initial hash.
+  - Convert this hash from a byte slice to a hexadecimal string representation.
+  - Split the hexadecimal hash string using "/" as the delimiter to handle different segments.
+  - For each segment:
+  - Split the segment by "#" to extract an additional string and a delete step value.
+  - Convert the delete step value from a string to an integer.
+  - Create a new string by appending the additional string to the current hash string.
+  - Recompute the hash of this new string and update the current hash string.
+  - Return a `D_hash` struct containing the final hash as both a byte slice and a string.
+
+4. Detailed Steps:
+  - Compute the SHA-256 hash using `sha256.Sum256([]byte(strData))`, which provides a 64-byte hash.
+  - Convert this hash to a hexadecimal string with `hex.EncodeToString(dataHash[:])`.
+  - Split the string into parts using `strings.Split(strDataHash, "/")` to separate different segments for further processing.
+  - Iterate over these segments. For each segment:
+  - Split by "#" using `strings.Split(part, "#")` to get the `addonString` and the `deleteStep`.
+  - Convert `deleteStep` from a string to an integer using `strconv.Atoi(d[1])`. If conversion fails, log an error.
+  - Create a new string `newString` by appending `addonString` to the current `strDataHash`.
+  - Call `D256(newString, deleteStep, 1).String` to recompute the hash and update `strDataHash`.
+  - Finally, create and return a `D_hash` struct containing the final `strDataHash` as a byte slice and string.
+
+The `D_hash` struct is used to encapsulate the result, making it easier to manage and use the final hash value.
+
+The `path` parameter is included for potential future use or compatibility with other parts of the codebase but is not utilized in the current implementation of the function.
+*/
+func D256C(strData string, path string) *D_hash {
+
+	dataHash := sha256.Sum256([]byte(strData))
+	var strDataHash string = hex.EncodeToString(dataHash[:])
+	parts := strings.Split(path, "/")
+
+	for _, part := range parts {
+		d := strings.Split(part, "#")
+
+		addonString := d[0]
+		newString := strDataHash + addonString
+
+		deleteStep, strconvErr := strconv.Atoi(d[1])
+		if strconvErr != nil {
+			log.Fatal("Hashing path is incorrect!")
+		}
+
+		strDataHash = D256(newString, deleteStep, 1).String
+	}
+
+	return &D_hash{
+		Byte_slice: []byte(strDataHash),
+		String:     strDataHash,
+	}
+}
+
+/*
+D512C is complex delium that performs a specific method of D512:
+
+1. Path example: "2h4usk#5/73uytg#9/#4"
+  - path := "addonString1 # deleteStep1 / addonString2 # deleteStep2 / # justDeleteStep3"
+
+2. Purpose:
+  - The function takes an initial string `strData` and a `path` (which is not used in this function directly) and processes the hash of `strData` through several iterations.
+  - Each iteration involves appending additional strings and recalculating the hash.
+
+3. Procedure:
+  - Compute the SHA-512 hash of the input string `strData` to generate an initial hash.
+  - Convert this hash from a byte slice to a hexadecimal string representation.
+  - Split the hexadecimal hash string using "/" as the delimiter to handle different segments.
+  - For each segment:
+  - Split the segment by "#" to extract an additional string and a delete step value.
+  - Convert the delete step value from a string to an integer.
+  - Create a new string by appending the additional string to the current hash string.
+  - Recompute the hash of this new string and update the current hash string.
+  - Return a `D_hash` struct containing the final hash as both a byte slice and a string.
+
+4. Detailed Steps:
+  - Compute the SHA-512 hash using `sha512.Sum512([]byte(strData))`, which provides a 64-byte hash.
+  - Convert this hash to a hexadecimal string with `hex.EncodeToString(dataHash[:])`.
+  - Split the string into parts using `strings.Split(strDataHash, "/")` to separate different segments for further processing.
+  - Iterate over these segments. For each segment:
+  - Split by "#" using `strings.Split(part, "#")` to get the `addonString` and the `deleteStep`.
+  - Convert `deleteStep` from a string to an integer using `strconv.Atoi(d[1])`. If conversion fails, log an error.
+  - Create a new string `newString` by appending `addonString` to the current `strDataHash`.
+  - Call `D512(newString, deleteStep, 1).String` to recompute the hash and update `strDataHash`.
+  - Finally, create and return a `D_hash` struct containing the final `strDataHash` as a byte slice and string.
+
+The `D_hash` struct is used to encapsulate the result, making it easier to manage and use the final hash value.
+
+The `path` parameter is included for potential future use or compatibility with other parts of the codebase but is not utilized in the current implementation of the function.
+*/
+func D512C(strData string, path string) *D_hash {
+
+	dataHash := sha512.Sum512([]byte(strData))
+	var strDataHash string = hex.EncodeToString(dataHash[:])
+	parts := strings.Split(path, "/")
+
+	for _, part := range parts {
+		d := strings.Split(part, "#")
+
+		addonString := d[0]
+		newString := strDataHash + addonString
+
+		deleteStep, strconvErr := strconv.Atoi(d[1])
+		if strconvErr != nil {
+			log.Fatal("Hashing path is incorrect!")
+		}
+
+		strDataHash = D512(newString, deleteStep, 1).String
 	}
 
 	return &D_hash{

@@ -3,7 +3,7 @@
 </p>
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-2.0.1-orange)
+![Version](https://img.shields.io/badge/Version-1.1.0-orange)
 
 # Delium
 

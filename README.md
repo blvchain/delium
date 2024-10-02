@@ -3,7 +3,7 @@
 </p>
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-1.1.0-orange)
+![Version](https://img.shields.io/badge/Version-1.1.1-orange)
 
 # Delium
 
@@ -104,13 +104,13 @@ In this path we use delium 3 times. First we use delium with adding `2h4usk` to 
 ## Installation
 
 ```bash
-go get github.com/yahya-aghdam/Delium
+go get github.com/blvchain/delium
 ```
 
 ## Import
 
 ```go
-import "github.com/yahya-aghdam/Delium"
+import "github.com/blvchain/delium"
 ```
 
 ## Usage example
@@ -120,7 +120,7 @@ package main
 
 import (
     "fmt"
-    "github.com/yahya-aghdam/Delium"
+    "github.com/blvchain/delium"
 )
 
 func main() {
